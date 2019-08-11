@@ -15,14 +15,26 @@ import com.ideas.springboot.webflux.app.models.documents.Producto;
 
 import reactor.core.publisher.Flux;
 
+/**
+ * The Class ProductoController.
+ * @author Israel Bejarano
+ */
 @Controller
 public class ProductoController {
 	
+	/** The dao. */
 	@Autowired
 	private ProductoDao dao;
 	
+	/** The Constant log. */
 	private static final Logger log = LoggerFactory.getLogger(ProductoController.class);
 	
+	/**
+	 * Listar.
+	 *
+	 * @param model the model
+	 * @return the string
+	 */
 	@GetMapping({"/listar", "/"})
 	public String listar(Model model) {
 		Flux<Producto> productos = dao.findAll().map(producto -> {
@@ -38,6 +50,12 @@ public class ProductoController {
 		
 	}
 
+	/**
+	 * Listar data driver.
+	 *
+	 * @param model the model
+	 * @return the string
+	 */
 	@GetMapping("/listar-datadriver")
 	public String listarDataDriver(Model model) {
 		Flux<Producto> productos = dao.findAll().map(producto -> {
@@ -52,6 +70,12 @@ public class ProductoController {
 		return "listar";
 	}
 	
+	/**
+	 * Listar full.
+	 *
+	 * @param model the model
+	 * @return the string
+	 */
 	@GetMapping("/listar-full")
 	public String listarFull(Model model) {
 		Flux<Producto> productos = dao.findAll().map(producto -> {
@@ -64,6 +88,12 @@ public class ProductoController {
 		return "listar";	
 	}
 	
+	/**
+	 * Listar chunked.
+	 *
+	 * @param model the model
+	 * @return the string
+	 */
 	@GetMapping("/listar-chunked")
 	public String listarChunked(Model model) {
 		Flux<Producto> productos = dao.findAll().map(producto -> {
@@ -75,7 +105,4 @@ public class ProductoController {
 		model.addAttribute("productos", productos);
 		return "listar-chunked";		
 	}
-
-
-
 }
